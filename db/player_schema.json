@@ -1,0 +1,52 @@
+{
+    "advanced": {
+        "body": [
+            {seasons}NN
+        ]
+    }
+    "basic": {
+        "body": [
+            {more season stats}NN
+        ]
+        "footer": []
+    }
+    "fantasyRZ": {
+        "body": [
+            {more season stats but just for rz}NN
+        ]
+    }
+    "gamelog":{
+        "body": [
+            {gamelog data for the most recent season} yes, one to many rel
+        ]
+    }
+    "passDef": {
+        "body": [
+            {defensive player stats for opp defense}NN
+        ]
+    }
+    "alignment": {
+        "detailed": [
+            {stats from Left Slot, Left Tight, Left Outside and Right Slot etc} 
+        ]yes, this data is not in the gamelog and will basically need to be rewritten every week
+        "grouped": [
+            {same as above options are just Slot, tight, outside}
+        ] dup data/ could be computed from above
+        "side": [
+            {same but Left or Right}
+        ] dup data
+        "team": [
+            {snap totals for other receivers at specific alignments}
+        ] dup data
+    }
+    "splits": {
+        "body": [
+            {diffy splits win, loss, grass, turf, etc}
+        ]nn
+    }
+    "gl2024": {
+        "body": [
+            {gamelog again and gl2023 exists as well}
+        ]
+    }
+
