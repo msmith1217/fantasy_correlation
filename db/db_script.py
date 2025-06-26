@@ -1,5 +1,77 @@
---I want to finish a project for once so I'm going to try and keep this simple
---I then proceeded to not keep it simple
+import re
+
+def parse_sql_schema(sql_ddl):
+    """
+    Parses SQL CREATE TABLE statements to extract column names and their types.
+
+    Args:
+        sql_ddl (str): A string containing one or more CREATE TABLE statements.
+
+    Returns:
+        dict: A dictionary where keys are 'table.column' and values are their types.
+              Types are simplified (e.g., 'VARCHAR(5)' becomes 'VARCHAR', 'NUMERIC(5,2)' becomes 'NUMERIC').
+    """
+    column_data = {}
+
+    # Split the DDL into individual CREATE TABLE statements
+    # This regex handles CREATE TABLE IF NOT EXISTS and similar variations
+    table_statements = re.findall(r'CREATE TABLE(?: IF NOT EXISTS)?\s+(\w+)\s*\((.*?)\);', sql_ddl, re.DOTALL | re.IGNORECASE)
+
+    for table_name, columns_str in table_statements:
+        table_name = table_name.lower() # Convert table name to lowercase for consistency
+
+        # Split columns string by comma, being careful not to split inside parentheses (e.g., for NUMERIC(5,2))
+        # This regex splits by comma that is NOT inside parentheses.
+        columns = re.split(r',\s*(?![^()]*\))', columns_str.strip())
+
+        for col_def in columns:
+            col_def = col_def.strip()
+            if not col_def:
+                continue
+
+            # Skip lines that are likely PRIMARY KEY or FOREIGN KEY constraints directly
+            if col_def.lower().startswith(('primary key', 'foreign key')):
+                continue
+
+            # Regex to find column name and its type
+            # It captures the first word as the column name and the next word (or pattern) as the type
+            match = re.match(r'(\w+)\s+([A-Z_]+(?:\(\d+(?:,\d+)?\))?(?:\s+\w+)*)', col_def, re.IGNORECASE)
+            if match:
+                column_name = match.group(1).lower()
+                column_type_raw = match.group(2).upper()
+
+                # Simplify the type: remove precision/scale for NUMERIC/VARCHAR etc.
+                # And remove other modifiers like 'NOT NULL', 'PRIMARY KEY', 'SERIAL', 'TEXT' etc.
+                simple_type_match = re.match(r'([A-Z_]+)(?:\(\d+(?:,\d+)?\))?', column_type_raw)
+                if simple_type_match:
+                    simple_type = simple_type_match.group(1)
+                else:
+                    # Fallback for types like TEXT, BOOLEAN, etc.
+                    simple_type_parts = column_type_raw.split()
+                    simple_type = simple_type_parts[0]
+
+                # Special handling for SERIAL, as it's typically an INTEGER type
+                if simple_type == 'SERIAL':
+                    simple_type = 'INTEGER'
+                elif simple_type == 'TEXT': # TEXT is a specific type in PostgreSQL
+                    simple_type = 'TEXT'
+                elif simple_type == 'BOOLEAN': # BOOLEAN is a specific type
+                    simple_type = 'BOOLEAN'
+                elif 'VARCHAR' in simple_type: # Ensure VARCHAR comes out as VARCHAR
+                    simple_type = 'VARCHAR'
+                elif 'NUMERIC' in simple_type: # Ensure NUMERIC comes out as NUMERIC
+                    simple_type = 'NUMERIC'
+                elif 'INTEGER' in simple_type: # Ensure INTEGER comes out as INTEGER
+                    simple_type = 'INTEGER'
+
+
+                key = f"{table_name}.{column_name}"
+                column_data[key] = simple_type
+
+    return column_data
+
+# Your provided SQL DDL
+sql_schema = """
 CREATE TABLE IF NOT EXISTS teams (
     id SERIAL PRIMARY KEY,
     name VARCHAR(5) NOT NULL);
@@ -241,3 +313,11 @@ CREATE TABLE IF NOT EXISTS player_season_splits (
     PRIMARY KEY (player_id, season, split_id),
     FOREIGN KEY (player_id) REFERENCES players(id)
 );
+"""
+
+# Generate the dictionary
+column_type_dict = parse_sql_schema(sql_schema)
+
+# Print the dictionary
+import json
+print(json.dumps(column_type_dict, indent=4))
