@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      
+        <meta charset="utf-8">
+        <title>Math</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/assets/css/style.css">
+    </head>
+    <body>
+        <div class="nav" >
+            <div class="nav-left"> 
+                <a href="/" class="site-logo-link">
+                    <img src="/static/images/football-icon.svg" alt="football logo" class="fb-logo" href="/">
+                    <span class="site-title">Sportsball Stats</span>
+                </a>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/math" class="nav-link">Math</a></li>
+            </ul>         
+        </div>
+        <div class="container-center">
+            <div class="header-section">
+                <h1>About The Math</h1>
+                <h3>You can read about how any of the stats are calculated on this website here:</h4>
+            </div>
+            <h3>Correlation</h3>
+            <p class="text-card">This stat is Pearson's Correlation Coefficient and it is calculated with a Python Library called NumPy.
+            The main thing to know is that only games played by both the searched player and player in that row are included when this stat is calculated.
+            If a player on the same team has played in the same game as the searched player they will be included in the results, so beware of small sample sizes skewing the correlations
+            </p>
+            <h3>Average Fantasy Points</h3>
+            <p class="text-card">This one as you can imagine is pretty simple, this is just an average of all games the player played in that season.<p>
+            <h3>More to come once week 1 DFS salaries are available!</h3>
+        </div>
+    </body>
+</html>

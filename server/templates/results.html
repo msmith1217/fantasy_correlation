@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      
+        <meta charset="utf-8">
+        <title>Stats?</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/assets/css/style.css">
+    </head>
+    <body>
+        <div class="nav" >
+            <div class="nav-left"> 
+                <a href="/" class="site-logo-link"> 
+                    <img src="/static/images/football-icon.svg" alt="football logo" class="fb-logo">
+                    <span class="site-title">Sportsball Stats</span>
+                </a> 
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/math" class="nav-link">Math</a></li>
+            </ul>         
+        </div>
+        <div class="buffer">
+        </div>
+
+        <div class="container-center">
+            <div class="player-card">
+                <h4>Player Fantasy Point Correlation with: {{searched_player.full_name}}</h4>
+                <h4>Postion: {{searched_player.position}} Team: {{searched_player.team_abbrev}}</h4>
+            </div>
+    
+
+            <table class="correlation-table">
+                <thead>
+                    <tr class="title-row">
+                        <th>Player</th>
+                        <th>DK Correlation</th>
+                        <th>FD Correlation</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for player in players %}
+                    <tr data-player-id="{{ player.player_id }}">
+                        <td>{{ player.full_name }} ({{ player.position }})</td>
+                        <td>{{ "%.4f" | format(player.dk_cor) }}</td>
+                        <td>{{ "%.4f" | format(player.fd_cor) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>       
+            </table>
+        </div>
+        <script>
+            window.TEAM_PLAYER_DATA = {{ players | tojson }};
+            window.TEAM_GAMELOGS = {{ gamelogs | tojson }};
+        </script>
+        <script src="/static/stats.js"></script>
+    </body>
+</html>

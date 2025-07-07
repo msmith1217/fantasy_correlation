@@ -1,0 +1,291 @@
+$primary1: #202225;
+$primary2: #2f3136;
+$accent: #A64AC9;
+$text-color: #e1e1e1;
+$bright-text: #e6e6e6;
+$primary3: #3e4045;
+$border-w: 2px;
+$tb-color: #555;
+$table-row-hover: #3a3d42;
+
+
+html, body {
+    margin: 0;
+    margin-bottom: 20px;
+    padding: 0;
+    width: 100%;
+    height: 100%; 
+    overflow-x: hidden;
+    font-family: "Inter", sans-serif;
+    color: $text-color;
+    background-color: $primary1;
+}
+.nav {
+  background-color: $primary2;
+  padding: 8px 20px;
+  margin: 0;
+  border-bottom-style: solid;
+  border-width: $border-w;
+  border-color: $accent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+.fb-logo {
+  width: 36px;
+  height: auto;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease-out;
+} 
+.fb-logo:hover {
+  transform: rotate(15deg);
+}
+.site-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: $bright-text;
+    white-space: nowrap;
+}
+.site-logo-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 10px
+}
+
+.nav-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 25px;
+}
+
+
+.nav-link {
+    color: $text-color;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: lighten($accent, 10%); /* Lighter accent color on hover */
+}
+
+.container-center {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  text-align: center;
+
+}
+.search-section {
+  max-width: 600px;
+  width: 100%;
+  height: 10rem;
+  margin: 0 auto;
+  padding: 20px 20px;
+  background-color: $primary2;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+
+}
+.search-section form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+
+}
+
+.header-section {
+    margin-bottom: 40px; 
+}
+
+.header-section h1 {
+    font-size: 3.5em; 
+    font-weight: 700; 
+    margin-bottom: 10px;
+    color: $bright-text; 
+}
+
+.header-section h3 {
+    font-size: 1.4em; 
+    font-weight: 300; 
+    color: $text-color;
+}
+.search-section label {
+    font-size: 1.2em; 
+    font-weight: 500;
+    margin-bottom: 5px; 
+    color: $text-color;
+}
+
+.search-section input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 12px 10px; 
+    font-size: 1.1em; 
+    border: 1px solid $accent; 
+    border-radius: 8px;
+    background-color: $primary3; 
+    color: $text-color;
+    outline: none; 
+    transition: border-color 0.3s ease;
+}
+
+.search-section input[type="text"]:focus {
+    border-color: lighten($accent, 10%); 
+    box-shadow: 0 0 5px rgba($accent, 0.5);
+}
+
+.search-section button[type="submit"] {
+    background-color: $accent;
+    width: 50%;
+    color: #FFFFFF; 
+    padding: 12px 25px;
+    font-size: 1.1em; 
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: bold;
+}
+
+.search-section button[type="submit"]:hover {
+    background-color: darken($accent, 10%);
+    transform: translateY(-2px); 
+
+}
+
+
+datalist option {
+    background-color: $primary2;
+    color: $text-color;
+}
+
+.buffer {
+  height: 10rem;
+}
+
+
+
+/* TABLE STUFF */
+.table-container {
+    margin-top: 40px; 
+    margin-bottom: 40px;
+    display: flex; 
+    justify-content: center; 
+    flex-direction: column;
+    align-items: center; 
+    width: 100%;
+    overflow-x: auto; /* Allow horizontal scrolling on small screens if table is wide */
+}
+
+.table-container h2 {
+    font-size: 2em;
+    color: $bright-text;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.correlation-table {
+    width: 100%; 
+    max-width: 800px; 
+    border-collapse: collapse; /* Eliminate space between cell borders */
+    border-radius: 8px; 
+    overflow: hidden; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); 
+    background-color: $primary2; 
+}
+
+.correlation-table thead {
+    background-color: $primary3;
+    border-bottom: $border-w solid $accent; 
+}
+
+.correlation-table th,
+.correlation-table td {
+    padding: 12px 15px; 
+    text-align: left; 
+    border: 1px solid $tb-color; 
+    color: $text-color;
+}
+
+.correlation-table th {
+    font-weight: bold;
+    color: $bright-text;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.correlation-table tbody tr:nth-child(even) {
+    background-color: darken($primary2, 3%); /* Slightly darker background for even rows */
+}
+
+.correlation-table tbody tr:hover {
+    background-color: $table-row-hover; 
+    cursor: pointer; 
+}
+
+.correlation-table tbody td:first-child {
+    font-weight: 500;
+    color: $bright-text;
+}
+
+.correlation-table th:nth-child(2),
+.correlation-table td:nth-child(2),
+.correlation-table th:nth-child(3),
+.correlation-table td:nth-child(3) {
+    text-align: center; 
+    width: 150px; 
+}
+
+/* Player Card */
+
+.player-card {
+    background-color: $primary2; 
+    border-radius: 8px;          
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); 
+    padding: 20px 30px;         
+    margin-bottom: 30px;         
+    text-align: center;         
+    color: $bright-text;        
+    max-width: 500px;           
+    width: 100%;                
+    box-sizing: border-box; 
+}
+
+.player-card h4 {
+    margin: 5px 0;
+    font-size: 1.2em; 
+    color: $bright-text; 
+}
+
+.text-card {
+    background-color: $primary2; 
+    border-radius: 8px;          
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); 
+    padding: 20px 30px;         
+    margin-bottom: 30px;         
+    text-align: center;         
+    color: $bright-text;        
+    max-width: 800px;           
+    width: 100%;                
+    box-sizing: border-box; 
+}

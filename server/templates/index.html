@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Sportsball Stats</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/assets/css/style.css">
+    </head>
+    <body>
+
+        <div class="nav" >
+            <div class="nav-left"> 
+                <a href="/" class="site-logo-link">
+                    <img src="/static/images/football-icon.svg" alt="football logo" class="fb-logo" href="/">
+                    <span class="site-title">Sportsball Stats</span>
+                </a>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/math" class="nav-link">Math</a></li>
+            </ul>         
+        </div>
+        <div class="container-center">
+            <div class="header-section">
+                <h1>Sportsball Stats</h1>
+                <h3>A very serious statistics webiste, currently only for NFL</h3>
+            </div>
+            
+            <div class="search-section">
+                <form id="searchForm" action="/player_search_results" method="GET">
+                    <label for="playerSearch">Search a player:</label>
+                    <input
+                        type="text" 
+                        id="playerSearch" 
+                        name="player_name_search"
+                        placeholder="e.g. Josh Allen"
+                        list="playerSuggestions"
+                        autocomplete="off"
+                        required
+                    >
+                    <!-- This <datalist> provides the autocomplete suggestions to the input field -->
+                    <datalist id="playerSuggestions">
+                        <!-- Options will be populated by JavaScript -->
+                    </datalist>
+                    <!-- This hidden input will store the selected player's ID before submitting the form -->
+                    <input type="hidden" id="selectedPlayerId" name="player_id">
+                    <button type="submit" id="searchButton" class="butt">Search</button>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            window.ALL_PLAYER_DATA = {{ players | tojson }};
+        </script>
+        <script src="/static/main.js"></script>
+    
+    </body>
+
+</html> 
