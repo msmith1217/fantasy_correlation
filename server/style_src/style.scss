@@ -249,10 +249,8 @@ datalist option {
     color: $bright-text;
 }
 
-.correlation-table th:nth-child(2),
-.correlation-table td:nth-child(2),
-.correlation-table th:nth-child(3),
-.correlation-table td:nth-child(3) {
+.correlation-table th:not(:first-child),
+.correlation-table td:not(:first-child) {    
     text-align: center; 
     width: 150px; 
 }
@@ -265,17 +263,39 @@ datalist option {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); 
     padding: 20px 30px;         
     margin-bottom: 30px;         
-    text-align: center;         
     color: $bright-text;        
-    max-width: 500px;           
+    max-width: 600px;           
     width: 100%;                
     box-sizing: border-box; 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+.card-spacing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+  h1 {
+    margin: 10px 0;
+    color: $bright-text;
+  }
 }
 
+
+  
 .player-card h4 {
     margin: 5px 0;
     font-size: 1.2em; 
     color: $bright-text; 
+}
+
+.team-logo {
+  width: 30%;
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .text-card {

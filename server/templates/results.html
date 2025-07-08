@@ -6,6 +6,7 @@
         <title>Stats?</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/static/assets/css/style.css">
+        <link rel="icon" type="image/svg+xml" href="/static/images/football-icon.svg">
     </head>
     <body>
         <div class="nav" >
@@ -26,34 +27,40 @@
 
         <div class="container-center">
             <div class="player-card">
-                <h4>Player Fantasy Point Correlation with: {{searched_player.full_name}}</h4>
+                <div class="card-spacing">
+                
+                <h1>{{searched_player.full_name}}</h1>
                 <h4>Postion: {{searched_player.position}} Team: {{searched_player.team_abbrev}}</h4>
+
+                </div>
             </div>
     
+            <div class="table-container">
+                <table class="correlation-table">
+                    <thead>
+                        <tr class="title-row">
+                            <th>Player</th>
+                            <th>DK Correlation</th>
+                            <th>FD Correlation</th>
+                        </tr>
+                    </thead>
 
-            <table class="correlation-table">
-                <thead>
-                    <tr class="title-row">
-                        <th>Player</th>
-                        <th>DK Correlation</th>
-                        <th>FD Correlation</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {% for player in players %}
-                    <tr data-player-id="{{ player.player_id }}">
-                        <td>{{ player.full_name }} ({{ player.position }})</td>
-                        <td>{{ "%.4f" | format(player.dk_cor) }}</td>
-                        <td>{{ "%.4f" | format(player.fd_cor) }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>       
-            </table>
+                    <tbody>
+                        {% for player in players %}
+                        <tr data-player-id="{{ player.player_id }}">
+                            <td>{{ player.full_name }} ({{ player.position }})</td>
+                            <td>{{ "%.4f" | format(player.dk_cor) }}</td>
+                            <td>{{ "%.4f" | format(player.fd_cor) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>       
+                </table>
+            </div>
         </div>
         <script>
             window.TEAM_PLAYER_DATA = {{ players | tojson }};
             window.TEAM_GAMELOGS = {{ gamelogs | tojson }};
+            window.SEARCHED_PLAYER = {{ searched_player | tojson }};
         </script>
         <script src="/static/stats.js"></script>
     </body>
